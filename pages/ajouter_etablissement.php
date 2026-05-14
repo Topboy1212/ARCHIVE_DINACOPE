@@ -80,35 +80,43 @@ if(!isset($_SESSION['user'])){
         </div>
 
         <div class="form-container">
-            <form action="../actions/save_etablissement.php" method="POST">
-                <div class="form-grid">
+            <form action="../actions/save_etablissements.php" method="POST">
+    <div class="form-grid">
+        <div class="form-group">
+            <label>Code École</label>
+            <input type="text" name="code_ecole" required placeholder="Ex: 10234">
+        </div>
+
+        <div class="form-group">
+            <label>Nom de l'École</label>
+            <input type="text" name="nom_ecole" required placeholder="Nom de l'établissement">
+        </div>
+
+        <div class="form-group">
+            <label>Province Éducationnelle</label>
+            <!-- Changé de 'province' à 'province_educationnelle' -->
+            <input type="text" name="province_educationnelle" required placeholder="Ex: Kinshasa-Lukunga">
+        </div>
+
+        <div class="form-group">
+            <label>Commune</label>
+            <input type="text" name="commune" required placeholder="Commune">
+        </div>
+
+        <div class="form-group">
+            <label>Type d'établissement</label>
+            <!-- Changé de 'type_etablissement' à 'type_ecole' -->
+            <select name="type_ecole" required>
+                <option value="EP">Ecole Primaire (EP)</option>
+                <option value="INSTITUT">Institut / Secondaire</option>
+                <option value="BUREAU">Bureau Administratif</option>
+            </select>
+        </div>
+    </div>
+    
+    <button type="submit" class="submit-btn">Enregistrer l'établissement</button>
+</form>
                     <div class="form-group">
-                        <label>Code Etablissement</label>
-                        <input type="text" name="code_etablissement" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Nom de l'Etablissement</label>
-                        <input type="text" name="nom_etablissement" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Province</label>
-                        <input type="text" name="province" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Commune / Territoire</label>
-                        <input type="text" name="commune" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Type d'Etablissement</label>
-                        <select name="type_etablissement" required>
-                            <option value="EP">Ecole Primaire (EP)</option>
-                            <option value="INSTITUT">Institut / Secondaire</option>
-                            <option value="BUREAU">Bureau Administratif</option>
-                        </select>
-                    </div>
-                </div>
-                <button type="submit" class="submit-btn">Enregistrer l'Etablissement</button>
-            </form>
         </div>
     </div>
 </div>

@@ -1,13 +1,23 @@
 <?php
-include('session.php');
-include('../config/db.php');
+
+include('session.php'); 
+
+ 
+require_once(__DIR__ . '/../config/db.php'); 
+
 
 $sql = "SELECT id_user, nom_utilisateur, role FROM utilisateurs ORDER BY nom_utilisateur ASC";
 $result = mysqli_query($connexion, $sql);
 
+if (!$result) {
+    die("Erreur dans la requête : " . mysqli_error($connexion));
+}
+
+
 include('../includes/header.php');
 include('../includes/sidebar.php');
 ?>
+
 
 <div class="main-content">
     <div class="header">

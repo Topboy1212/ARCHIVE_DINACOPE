@@ -1,15 +1,21 @@
 <?php
-include('session.php');
-include('../config/db.php');
+include('../includes/session.php');
+require_once(__DIR__ . '/../config/db.php');
 
 $sql = "SELECT 
             e.matricule, 
             e.nom, 
             e.postnom, 
             e.prenom, 
-            et.nom_ecole 
+            et.nom_ecole
         FROM enseignants AS e
         LEFT JOIN etablissements AS et ON e.id_etablissement = et.id_etablissement";
+
+$result = mysqli_query($connexion, $sql);
+
+if (!$result) {
+    die("Erreur SQL : " . mysqli_error($connexion));
+}
 
 include('../includes/header.php');
 include('../includes/sidebar.php');
@@ -37,7 +43,7 @@ include('../includes/sidebar.php');
                 <tr>
                     <td><?php echo $row['matricule']; ?></td>
                     <td><?php echo $row['nom'] . " " . $row['postnom'] . " " . $row['prenom']; ?></td>
-                    <td><?php echo $row['nom_ecole'] ? $row['nom_ecole'] : "Non affecté"; ?></td>
+                    <td><?php echo !empty($row['nom_etablissement']) ? $row['nom_etablissement'] : "Non affecté"; ?></td>
                 </tr>
                 <?php } ?>
             </tbody>
@@ -45,14 +51,4 @@ include('../includes/sidebar.php');
     </div>
 </div>
 
-<style>
-@media print {
-    .sidebar, .header button { display: none; }
-    .main-content { margin: 0; width: 100%; }
-    body { background: white; color: black; }
-    table { border: 1px solid #000; width: 100%; border-collapse: collapse; }
-    th, td { border: 1px solid #000; padding: 8px; color: black; }
-}
-</style>
-
-<?php include('footer.php'); ?>
+<?php include('../includes/footer.php'); ?>

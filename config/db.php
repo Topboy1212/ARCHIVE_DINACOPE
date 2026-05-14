@@ -5,11 +5,11 @@ ini_set('display_errors', 1);
 
 $host = "localhost";
 $user = "root";
-$password = "";
+$password = "root";
 $dbname = "dynacope_db";
 $port = 3306;
 
-$connexion = mysqli_connect('localhost', 'root', 'root', 'dynacope_db', 3306);
+$connexion = mysqli_connect($host, $user, $password, $dbname, $port);
 if (!$connexion) {
     die("Erreur de connexion à la base de données : " . mysqli_connect_error());
 }
