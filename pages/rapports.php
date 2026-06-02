@@ -1,5 +1,11 @@
 <?php
-include('../includes/session.php');
+session_start();
+
+if(!isset($_SESSION['user'])){
+    header("Location: ../login.php");
+    exit();
+}
+
 require_once(__DIR__ . '/../config/db.php');
 
 $sql = "SELECT 
@@ -16,39 +22,71 @@ $result = mysqli_query($connexion, $sql);
 if (!$result) {
     die("Erreur SQL : " . mysqli_error($connexion));
 }
-
-include('../includes/header.php');
-include('../includes/sidebar.php');
 ?>
 
-<div class="main-content">
-    <div class="header">
-        <h1>Rapport des Affectations</h1>
-        <button onclick="window.print()" style="background: #4cc9f0; color: #050a18; border: none; padding: 10px 15px; border-radius: 5px; cursor: pointer; font-weight: bold;">
-            Imprimer le rapport
-        </button>
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rapports - DYNACOPE</title>
+    <link rel="stylesheet" href="../assets/css/pages/rapports.css">
+</head>
+<body>
+
+<div class="dashboard-container">
+
+    <!-- SIDEBAR -->
+    <div class="sidebar">
+        <h2>DYNACOPE</h2>
+        <ul>
+            <li><a href="dashboard.php">Dashboard</a></li>
+            <li><a href="enseignants.php">Enseignants</a></li>
+            <li><a href="etablissements.php">Etablissements</a></li>
+            <li><a href="affectation.php">Affectations</a></li>
+            <li><a href="documents.php">Documents</a></li>
+            <li><a href="statistiques.php">Statistiques</a></li>
+            <li><a href="rapports.php" class="active">Rapports</a></li>
+            <li><a href="utilisateurs.php">Utilisateurs</a></li>
+            <li><a href="profil.php">Profil</a></li>
+            <li><a href="../logout.php">Déconnexion</a></li>
+        </ul>
     </div>
 
-    <div class="table-section" id="printable">
-        <table>
-            <thead>
-                <tr>
-                    <th>Matricule</th>
-                    <th>Nom Complet</th>
-                    <th>Etablissement Affecté</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php while($row = mysqli_fetch_assoc($result)) { ?>
-                <tr>
-                    <td><?php echo $row['matricule']; ?></td>
-                    <td><?php echo $row['nom'] . " " . $row['postnom'] . " " . $row['prenom']; ?></td>
-                    <td><?php echo !empty($row['nom_etablissement']) ? $row['nom_etablissement'] : "Non affecté"; ?></td>
-                </tr>
-                <?php } ?>
-            </tbody>
-        </table>
+    <!-- MAIN CONTENT -->
+    <div class="main-content">
+        <div class="header">
+            <h1>Rapport des Affectations</h1>
+            <button onclick="window.print()" class="submit-btn">Imprimer le rapport</button>
+        </div>
+
+        <div class="table-section" id="printable">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Matricule</th>
+                        <th>Nom Complet</th>
+                        <th>Etablissement Affecté</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php while($row = mysqli_fetch_assoc($result)) { ?>
+                    <tr>
+                        <td><?php echo $row['matricule']; ?></td>
+                        <td><?php echo $row['nom'] . " " . $row['postnom'] . " " . $row['prenom']; ?></td>
+                        <td><?php echo !empty($row['nom_ecole']) ? $row['nom_ecole'] : "Non affecté"; ?></td>
+                    </tr>
+                    <?php } ?>
+                </tbody>
+            </table>
+        </div>
     </div>
+
 </div>
 
-<?php include('../includes/footer.php'); ?>
+</body>
+</html>
+
+<?php
+mysqli_close($connexion);
+?>

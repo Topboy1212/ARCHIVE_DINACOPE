@@ -1,7 +1,12 @@
 <?php
-include('../includes/session.php'); 
+session_start();
 
-require_once(__DIR__ . '/../config/db.php'); 
+if(!isset($_SESSION['user'])){
+    header("Location: ../login.php");
+    exit();
+}
+
+require_once(__DIR__ . '/../config/db.php');
 
 function getCount($conn, $table) {
     $res = mysqli_query($conn, "SELECT COUNT(*) as total FROM $table");
@@ -15,33 +20,68 @@ function getCount($conn, $table) {
 $nb_ens  = getCount($connexion, "enseignants");
 $nb_etab = getCount($connexion, "etablissements");
 $nb_docs = getCount($connexion, "documents");
-
-include('../includes/header.php');
-include('../includes/sidebar.php');
 ?>
 
-<div class="main-content">
-    <div class="header">
-        <h1>Statistiques Générales</h1>
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Statistiques - DYNACOPE</title>
+    <link rel="stylesheet" href="../assets/css/pages/statistiques.css">
+</head>
+<body>
+
+<div class="dashboard-container">
+
+    <!-- SIDEBAR -->
+    <div class="sidebar">
+        <h2>DYNACOPE</h2>
+        <ul>
+            <li><a href="dashboard.php">Dashboard</a></li>
+            <li><a href="enseignants.php">Enseignants</a></li>
+            <li><a href="etablissements.php">Etablissements</a></li>
+            <li><a href="affectation.php">Affectations</a></li>
+            <li><a href="documents.php">Documents</a></li>
+            <li><a href="statistiques.php" class="active">Statistiques</a></li>
+            <li><a href="rapports.php">Rapports</a></li>
+            <li><a href="utilisateurs.php">Utilisateurs</a></li>
+            <li><a href="profil.php">Profil</a></li>
+            <li><a href="../logout.php">Déconnexion</a></li>
+        </ul>
     </div>
-    
-    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin-top: 20px;">
+
+    <!-- MAIN CONTENT -->
+    <div class="main-content">
+        <div class="header">
+            <h1>Statistiques Générales</h1>
+        </div>
         
-        <div style="background: #0f1c3f; padding: 25px; border-radius: 10px; border: 1px solid #4cc9f0; box-shadow: 0 4px 15px rgba(0,0,0,0.3);">
-            <h3 style="margin-top: 0; color: #fff; font-weight: 300;">Enseignants</h3>
-            <p style="font-size: 32px; color: #4cc9f0; font-weight: bold; margin-bottom: 0;"><?php echo $nb_ens; ?></p>
-        </div>
+        <div class="stats-container">
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="label">Enseignants</div>
+                    <div class="value"><?php echo $nb_ens; ?></div>
+                </div>
 
-        <div style="background: #0f1c3f; padding: 25px; border-radius: 10px; border: 1px solid #4cc9f0; box-shadow: 0 4px 15px rgba(0,0,0,0.3);">
-            <h3 style="margin-top: 0; color: #fff; font-weight: 300;">Établissements</h3>
-            <p style="font-size: 32px; color: #4cc9f0; font-weight: bold; margin-bottom: 0;"><?php echo $nb_etab; ?></p>
-        </div>
+                <div class="stat-card">
+                    <div class="label">Établissements</div>
+                    <div class="value"><?php echo $nb_etab; ?></div>
+                </div>
 
-        <div style="background: #0f1c3f; padding: 25px; border-radius: 10px; border: 1px solid #4cc9f0; box-shadow: 0 4px 15px rgba(0,0,0,0.3);">
-            <h3 style="margin-top: 0; color: #fff; font-weight: 300;">Documents Archivés</h3>
-            <p style="font-size: 32px; color: #4cc9f0; font-weight: bold; margin-bottom: 0;"><?php echo $nb_docs; ?></p>
+                <div class="stat-card">
+                    <div class="label">Documents Archivés</div>
+                    <div class="value"><?php echo $nb_docs; ?></div>
+                </div>
+            </div>
         </div>
     </div>
+
 </div>
 
-<?php include('../includes/footer.php'); ?> 
+</body>
+</html>
+
+<?php
+mysqli_close($connexion);
+?>

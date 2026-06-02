@@ -1,0 +1,178 @@
+/* ==========================================
+   ENSEIGNANTS PAGE STYLES
+   Palette: Bleu Néon
+   ========================================== */
+
+:root {
+    --primary-blue: #4cc9f0;
+    --dark-blue: #0f1c3f;
+    --darker-blue: #050a18;
+    --light-text: #e0e6ed;
+    --muted-text: #aeb9cc;
+    --border-color: rgba(255, 255, 255, 0.1);
+    --card-bg: rgba(255, 255, 255, 0.03);
+    --sidebar-width: 260px;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    height: 100%;
+    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    background: var(--darker-blue);
+    color: var(--light-text);
+}
+
+body {
+    display: flex;
+    overflow: hidden;
+}
+
+/* SIDEBAR */
+.sidebar {
+    width: var(--sidebar-width);
+    background: linear-gradient(180deg, var(--dark-blue) 0%, var(--darker-blue) 100%);
+    border-right: 1px solid var(--border-color);
+    padding: 30px 20px;
+    overflow-y: auto;
+    height: 100vh;
+    position: fixed;
+    left: 0;
+    top: 0;
+}
+
+.sidebar h2 {
+    color: var(--primary-blue);
+    font-size: 20px;
+    margin-bottom: 40px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-weight: 600;
+}
+
+.sidebar ul {
+    list-style: none;
+}
+
+.sidebar ul li {
+    margin-bottom: 15px;
+}
+
+.sidebar ul li a {
+    color: var(--muted-text);
+    text-decoration: none;
+    display: block;
+    padding: 12px 15px;
+    border-radius: 8px;
+    transition: 0.3s ease;
+    border-left: 3px solid transparent;
+}
+
+.sidebar ul li a:hover,
+.sidebar ul li a.active {
+    background: rgba(76, 201, 240, 0.1);
+    color: var(--primary-blue);
+    border-left-color: var(--primary-blue);
+    padding-left: 20px;
+}
+
+/* MAIN CONTENT */
+.dashboard-container {
+    display: flex;
+    width: 100%;
+    height: 100vh;
+}
+
+.main-content {
+    margin-left: var(--sidebar-width);
+    width: calc(100% - var(--sidebar-width));
+    height: 100vh;
+    overflow-y: auto;
+}
+
+.header {
+    background: linear-gradient(135deg, rgba(15, 28, 63, 0.5) 0%, rgba(5, 10, 24, 0.5) 100%);
+    border-bottom: 1px solid var(--border-color);
+    padding: 30px 40px;
+}
+
+.header h1 {
+    color: var(--primary-blue);
+    font-size: 32px;
+    font-weight: 300;
+    letter-spacing: 1px;
+}
+
+/* TABLE SECTION */
+.table-section {
+    padding: 40px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+thead {
+    background: linear-gradient(135deg, rgba(76, 201, 240, 0.1) 0%, rgba(76, 201, 240, 0.05) 100%);
+    border-bottom: 1px solid var(--border-color);
+}
+
+th {
+    color: var(--primary-blue);
+    padding: 15px;
+    text-align: left;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 12px;
+    letter-spacing: 1px;
+}
+
+td {
+    color: var(--muted-text);
+    padding: 15px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+tbody tr:hover {
+    background: rgba(76, 201, 240, 0.05);
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+    .sidebar {
+        position: fixed;
+        left: -260px;
+        z-index: 1000;
+        transition: 0.3s ease;
+    }
+
+    .sidebar.active {
+        left: 0;
+    }
+
+    .main-content {
+        margin-left: 0;
+        width: 100%;
+    }
+
+    .header {
+        padding: 20px;
+    }
+
+    .header h1 {
+        font-size: 24px;
+    }
+
+    .table-section {
+        padding: 20px;
+    }
+}

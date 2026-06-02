@@ -1,7 +1,12 @@
 <?php
-include('../includes/session.php'); 
+session_start();
 
-require_once(__DIR__ . '/../config/db.php'); 
+if(!isset($_SESSION['user'])){
+    header("Location: ../login.php");
+    exit();
+}
+
+require_once(__DIR__ . '/../config/db.php');
 
 $user_name = $_SESSION['user'];
 $sql = "SELECT * FROM utilisateurs WHERE nom_utilisateur = ?";
@@ -14,21 +19,68 @@ $user = mysqli_fetch_assoc($result);
 if (!$user) {
     die("Erreur : Utilisateur introuvable.");
 }
-
-include('../includes/header.php');
-include('../includes/sidebar.php');
 ?>
 
-<div class="main-content">
-    <div class="header">
-        <h1>Mon Profil</h1>
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profil - DYNACOPE</title>
+    <link rel="stylesheet" href="../assets/css/pages/profil.css">
+</head>
+<body>
+
+<div class="dashboard-container">
+
+    <!-- SIDEBAR -->
+    <div class="sidebar">
+        <h2>DYNACOPE</h2>
+        <ul>
+            <li><a href="dashboard.php">Dashboard</a></li>
+            <li><a href="enseignants.php">Enseignants</a></li>
+            <li><a href="etablissements.php">Etablissements</a></li>
+            <li><a href="affectation.php">Affectations</a></li>
+            <li><a href="documents.php">Documents</a></li>
+            <li><a href="statistiques.php">Statistiques</a></li>
+            <li><a href="rapports.php">Rapports</a></li>
+            <li><a href="utilisateurs.php">Utilisateurs</a></li>
+            <li><a href="profil.php" class="active">Profil</a></li>
+            <li><a href="../logout.php">Déconnexion</a></li>
+        </ul>
     </div>
 
-    <div class="form-container" style="background: rgba(255, 255, 255, 0.02); padding: 30px; border-radius: 15px; border: 1px solid rgba(255, 255, 255, 0.1);">
-        <p><strong>Nom d'utilisateur :</strong> <?php echo $user['nom_utilisateur']; ?></p>
-        <p><strong>Rôle :</strong> <?php echo $user['role']; ?></p>
-        <p><strong>Dernière connexion :</strong> <?php echo date('d/m/Y H:i'); ?></p>
+    <!-- MAIN CONTENT -->
+    <div class="main-content">
+        <div class="header">
+            <h1>Mon Profil</h1>
+        </div>
+
+        <div class="profile-container">
+            <div class="profile-card">
+                <div class="profile-info">
+                    <div class="info-field">
+                        <label>Nom d'utilisateur</label>
+                        <span><?php echo htmlspecialchars($user['nom_utilisateur']); ?></span>
+                    </div>
+                    <div class="info-field">
+                        <label>Rôle</label>
+                        <span><?php echo htmlspecialchars($user['role']); ?></span>
+                    </div>
+                    <div class="info-field">
+                        <label>Date d'inscription</label>
+                        <span><?php echo date('d/m/Y H:i', strtotime($user['date_creation'])); ?></span>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
+
 </div>
 
-<?php include('../includes/footer.php'); ?>
+</body>
+</html>
+
+<?php
+mysqli_close($connexion);
+?>

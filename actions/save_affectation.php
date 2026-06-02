@@ -4,32 +4,45 @@ ini_set('display_errors', 1);
 
 session_start();
 
-if(!isset($_SESSION['user'])){
+if (!isset($_SESSION['user'])) {
     header("Location: ../login.php");
     exit();
 }
 
-include('../config/db.php');
+require_once(__DIR__ . '/../config/db.php');
 
-if (isset($_POST['id_enseignant']) && isset($_POST['id_etablissement'])) {
+/** @var mysqli $connexion */
 
-    $id_enseignant = $_POST['id_enseignant'];
-    $id_etablissement = $_POST['id_etablissement'];
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
-    $sql = "UPDATE enseignants SET id_etablissement = ? WHERE id_enseignant = ?";
-    
-    $stmt = mysqli_prepare($connexion, $sql);
-    mysqli_stmt_bind_param($stmt, "ii", $id_etablissement, $id_enseignant);
+    $id_enseignant = $_POST['id_enseignant'] ?? '';
+    $id_etablissement = $_POST['id_etablissement'] ?? '';
 
-    if (mysqli_stmt_execute($stmt)) {
-        header("Location: ../pages/rapport.php?success=affectation");
-        exit();
-    } else {
-        echo "Erreur lors de l'affectation : " . mysqli_error($connexion);
+    if (!empty($id_enseignant) && !empty($id_etablissement)) {
+
+        $sql = "UPDATE enseignants SET id_etablissement = ? WHERE id_enseignant = ?";
+        
+        $stmt = mysqli_prepare($connexion, $sql);
+
+        if ($stmt) {
+            mysqli_stmt_bind_param($stmt, "ii", $id_etablissement, $id_enseignant);
+
+            if (mysqli_stmt_execute($stmt)) {
+                mysqli_stmt_close($stmt);
+                mysqli_close($connexion);
+                header("Location: ../pages/rapport.php?success=affectation");
+                exit();
+            } else {
+                die("Erreur SQL : " . mysqli_stmt_error($stmt));
+            }
+        }
     }
-
-    mysqli_stmt_close($stmt);
+} else {
+    header("Location: ../pages/affectation.php");
+    exit();
 }
 
-mysqli_close($connexion);
+if (isset($connexion)) {
+    mysqli_close($connexion);
+}
 ?>
