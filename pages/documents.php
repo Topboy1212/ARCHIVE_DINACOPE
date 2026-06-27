@@ -28,7 +28,7 @@ $result = mysqli_query($connexion, $sql);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Documents - DYNACOPE</title>
-    <link rel="stylesheet" href="../assets/css/pages/documents.css">
+    <link rel="stylesheet" href="../assets/css/global.css">
 </head>
 <body>
 

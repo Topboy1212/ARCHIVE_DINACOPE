@@ -7,7 +7,7 @@ if (!isset($_SESSION['user'])) {
 }
 
 require_once(__DIR__ . '/../config/db.php');
-
+/** @var mysqli $connexion */
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     
     // Utilisation de l'opérateur ?? pour éviter les "Undefined array key"

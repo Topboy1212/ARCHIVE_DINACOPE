@@ -15,6 +15,8 @@ include('../config/db.php');
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ajouter Enseignant - DYNACOPE</title>
+    <link rel="stylesheet" href="../assets/css/global.css">
+
     <link rel="stylesheet" href="../assets/css/pages/ajouter_enseignant.css">
 </head>
 <body>

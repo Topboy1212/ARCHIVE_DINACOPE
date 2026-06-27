@@ -7,7 +7,7 @@ if(!isset($_SESSION['user'])){
 }
 
 require_once(__DIR__ . '/../config/db.php');
-
+/** @var mysqli $connexion */
 $enseignants = mysqli_query($connexion, "SELECT id_enseignant, nom, postnom FROM enseignants ORDER BY nom ASC");
 $etablissements = mysqli_query($connexion, "SELECT id_etablissement, nom_ecole FROM etablissements ORDER BY nom_ecole ASC");
 ?>
@@ -18,6 +18,7 @@ $etablissements = mysqli_query($connexion, "SELECT id_etablissement, nom_ecole F
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ajouter Document - DYNACOPE</title>
+    <link rel="stylesheet" href="../assets/css/global.css">
     <link rel="stylesheet" href="../assets/css/pages/ajouter_document.css">
 </head>
 <body>

@@ -7,7 +7,7 @@ if(!isset($_SESSION['user'])){
 }
 
 require_once(__DIR__ . '/../config/db.php');
-
+/** @var mysqli $connexion */
 $user_name = $_SESSION['user'];
 $sql = "SELECT * FROM utilisateurs WHERE nom_utilisateur = ?";
 $stmt = mysqli_prepare($connexion, $sql);
@@ -27,7 +27,7 @@ if (!$user) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Profil - DYNACOPE</title>
-    <link rel="stylesheet" href="../assets/css/pages/profil.css">
+    <link rel="stylesheet" href="../assets/css/global.css">
 </head>
 <body>
 

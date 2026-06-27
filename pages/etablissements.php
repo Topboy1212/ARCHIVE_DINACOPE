@@ -7,7 +7,7 @@ if(!isset($_SESSION['user'])){
 }
 
 require_once(__DIR__ . '/../config/db.php');
-
+/** @var mysqli $connexion */
 $sql = "SELECT * FROM etablissements ORDER BY id_etablissement DESC";
 $result = mysqli_query($connexion, $sql);
 
@@ -22,7 +22,7 @@ if (!$result) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Etablissements - DYNACOPE</title>
-    <link rel="stylesheet" href="../assets/css/pages/etablissements.css">
+    <link rel="stylesheet" href="../assets/css/global.css">
 </head>
 <body>
 

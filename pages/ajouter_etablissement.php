@@ -7,6 +7,7 @@ if(!isset($_SESSION['user'])){
 }
 
 include('../config/db.php');
+/** @var mysqli $connexion */
 ?>
 
 <!DOCTYPE html>
@@ -15,6 +16,7 @@ include('../config/db.php');
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ajouter Etablissement - DYNACOPE</title>
+    <link rel="stylesheet" href="../assets/css/global.css">
     <link rel="stylesheet" href="../assets/css/pages/ajouter_etablissement.css">
 </head>
 <body>

@@ -7,7 +7,7 @@ if(!isset($_SESSION['user'])){
 }
 
 require_once(__DIR__ . '/../config/db.php');
-
+/** @var mysqli $connexion */
 $sql = "SELECT 
             e.matricule, 
             e.nom, 
@@ -30,6 +30,7 @@ if (!$result) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rapports - DYNACOPE</title>
+    <link rel="stylesheet" href="../assets/css/global.css">
     <link rel="stylesheet" href="../assets/css/pages/rapports.css">
 </head>
 <body>

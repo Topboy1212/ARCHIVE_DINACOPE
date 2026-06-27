@@ -7,9 +7,9 @@ if(!isset($_SESSION['user'])){
 }
 
 require_once(__DIR__ . '/../config/db.php');
-
-function getCount($conn, $table) {
-    $res = mysqli_query($conn, "SELECT COUNT(*) as total FROM $table");
+/** @var mysqli $connexion */
+function getCount($connexion, $table) {
+    $res = mysqli_query($connexion, "SELECT COUNT(*) as total FROM $table");
     if ($res) {
         $data = mysqli_fetch_assoc($res);
         return $data['total'];
@@ -28,7 +28,7 @@ $nb_docs = getCount($connexion, "documents");
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Statistiques - DYNACOPE</title>
-    <link rel="stylesheet" href="../assets/css/pages/statistiques.css">
+    <link rel="stylesheet" href="../assets/css/global.css">
 </head>
 <body>
 
@@ -83,5 +83,6 @@ $nb_docs = getCount($connexion, "documents");
 </html>
 
 <?php
+/** @var mysqli $connexion */
 mysqli_close($connexion);
 ?>

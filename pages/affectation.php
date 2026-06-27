@@ -7,7 +7,7 @@ if(!isset($_SESSION['user'])){
 }
 
 include('../config/db.php');
-
+/** @var mysqli $connexion */
 $enseignants = mysqli_query($connexion, "SELECT id_enseignant, nom, postnom, prenom FROM enseignants ORDER BY nom ASC");
 $etablissements = mysqli_query($connexion, "SELECT id_etablissement, nom_ecole FROM etablissements ORDER BY nom_ecole ASC");
 ?>
@@ -18,7 +18,8 @@ $etablissements = mysqli_query($connexion, "SELECT id_etablissement, nom_ecole F
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Affectations - DYNACOPE</title>
-    <link rel="stylesheet" href="../assets/css/pages/affectation.css">
+    <link rel="stylesheet" href="../assets/css/global.css">
+   
 </head>
 <body>
 

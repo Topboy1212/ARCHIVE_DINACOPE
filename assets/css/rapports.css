@@ -1,0 +1,194 @@
+/* ==========================================
+   RAPPORTS PAGE
+   Style DINACOPE - Bleu Nuit
+   ========================================== */
+
+:root {
+    --primary-dark: #05122e;
+    --accent-gold: #ffb703;
+    --text-dark: #1a2a40;
+    --text-light: #ffffff;
+    --text-muted: #aeb9cc;
+    --text-secondary: #2b3a4a;
+    --bg-light: #d2e4f7;
+    --button-blue: #0d6efd;
+    --button-blue-hover: #0b5ed7;
+    --danger-red: #dc3545;
+}
+
+body {
+    background: var(--bg-light);
+    color: var(--text-dark);
+}
+
+/* CONTAINER */
+
+.dashboard-container {
+    display: flex;
+    min-height: 100vh;
+}
+
+/* SIDEBAR */
+
+.sidebar {
+    width: 260px;
+    background: var(--primary-dark);
+    padding: 25px;
+    box-shadow: 2px 0 15px rgba(0,0,0,.15);
+}
+
+.sidebar h2 {
+    color: var(--accent-gold);
+    text-align: center;
+    margin-bottom: 30px;
+    text-transform: uppercase;
+}
+
+.sidebar ul {
+    list-style: none;
+}
+
+.sidebar ul li {
+    margin-bottom: 10px;
+}
+
+.sidebar ul li a {
+    display: block;
+    padding: 12px 15px;
+    color: white;
+    text-decoration: none;
+    border-radius: 6px;
+    transition: .3s;
+}
+
+.sidebar ul li a:hover,
+.sidebar ul li a.active {
+    background: var(--button-blue);
+}
+
+.sidebar ul li:last-child a {
+    color: #ff6b6b;
+}
+
+/* MAIN */
+
+.main-content {
+    flex: 1;
+    padding: 30px;
+}
+
+/* HEADER */
+
+.header {
+    background: var(--primary-dark);
+    color: white;
+    padding: 25px;
+    border-radius: 8px;
+    margin-bottom: 30px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header h1 {
+    font-size: 1.8rem;
+    text-transform: uppercase;
+}
+
+/* BOUTON */
+
+.submit-btn {
+    background: var(--button-blue);
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: .3s;
+}
+
+.submit-btn:hover {
+    background: var(--button-blue-hover);
+}
+
+/* TABLE SECTION */
+
+.table-section {
+    background: rgba(255,255,255,.6);
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,.08);
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th {
+    background: var(--primary-dark);
+    color: white;
+    padding: 15px;
+    text-align: left;
+    text-transform: uppercase;
+}
+
+td {
+    padding: 15px;
+    border-bottom: 1px solid #d9e2ec;
+}
+
+tr:hover {
+    background: rgba(13,110,253,.05);
+}
+
+/* IMPRESSION */
+
+@media print {
+
+    .sidebar,
+    .submit-btn {
+        display: none;
+    }
+
+    .main-content {
+        width: 100%;
+        padding: 0;
+    }
+
+    .header {
+        background: white;
+        color: black;
+        border: none;
+        box-shadow: none;
+    }
+}
+
+/* RESPONSIVE */
+
+@media(max-width:768px){
+
+    .dashboard-container{
+        flex-direction:column;
+    }
+
+    .sidebar{
+        width:100%;
+    }
+
+    .header{
+        flex-direction:column;
+        gap:15px;
+        text-align:center;
+    }
+
+    .table-section{
+        overflow-x:auto;
+    }
+
+    table{
+        min-width:700px;
+    }
+}

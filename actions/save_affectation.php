@@ -30,7 +30,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             if (mysqli_stmt_execute($stmt)) {
                 mysqli_stmt_close($stmt);
                 mysqli_close($connexion);
-                header("Location: ../pages/rapport.php?success=affectation");
+                header("Location: ../pages/rapports.php?success=affectation");
                 exit();
             } else {
                 die("Erreur SQL : " . mysqli_stmt_error($stmt));
